@@ -51,11 +51,6 @@ int main()
     char elem;
     ifstream infile;
     ofstream outfile;
-/*
-
-
-
-*/
 
     string input, command, copied_loc, paste_loc;
     char a[255] = "";
@@ -70,8 +65,10 @@ int main()
         if (command == "dir") {
             strcpy(a, get_word(input, 1).c_str());
             show_dir(a);
+
         } else if (command == "copy") {
             copied_loc = get_word(input, 1);
+
         } else if (command == "paste") {
             paste_loc = get_word(input, 1);
             //cout << copied_loc << " is pasted to: " << get_word(input, 1) << endl;
@@ -84,6 +81,7 @@ int main()
             }
             infile.close();
             outfile.close();
+
         } else if(command == "read") {
             infile.open(get_word(input, 1), ios::binary);
             infile.seekg(0, ios::beg);
@@ -106,8 +104,24 @@ int main()
             cout << endl;
             infile.close();
 
+        } else if (command == "remove") {
+            string file_name = get_word(input, 1);
+            int n = file_name.length();
+            char char_array[n + 1];
+            strcpy(char_array, file_name.c_str());
+            remove(char_array);
+
+        } else if (command == "rename") {
+            string file_name1 = get_word(input, 1), file_name2 = get_word(input, 2);
+            int n1 = file_name1.length(), n2 = file_name2.length();
+            char char_array1[n1 + 1], char_array2[n2 + 1];
+            strcpy(char_array1, file_name1.c_str());
+            strcpy(char_array2, file_name2.c_str());
+            rename(char_array1, char_array2);
+
         } else if (command == "exit") {
             break;
+
         } else {
             cout << "Command not found!" << endl;
         }
